@@ -58,19 +58,19 @@ Assumng then that MyCompany has a website and an app.
 
 # Roadmap
 ## Proof of Concept
-[X] Having a running instance of Node.js and dependencies
-[X] Having Websockets running on a small example
-[X] **TAG 0.1.0** Having a QR-Code generator
-[ ] **TAG 0.2.0** Using external URL, disclose webpage and unique ID i another device
-[ ] **TAG 0.3.0** Using QR-Code through phone's browser, simulate the user stori described in "Principle" section
-[ ] **TAG 0.4.0** Having a dummy Android App with a QR-Code reader.
-[ ] **TAG 0.5.0** Using App's QR-code reader, simulate the user story.
-[ ] **TAG 0.6.0** Code check with Unique ID handshakes.
-
+- [X] Having a running instance of Node.js and dependencies
+- [X] Having Websockets running on a small example
+- [X] **TAG 0.1.0** Having a QR-Code generator
+- [ ] **TAG 0.2.0** Using external URL, disclose webpage and unique ID i another device
+- [ ] **TAG 0.3.0** Using QR-Code through phone's browser, simulate the user stori described in "Principle" section
+- [ ] **TAG 0.4.0** Having a dummy Android App with a QR-Code reader.
+- [ ] **TAG 0.5.0** Using App's QR-code reader, simulate the user story.
+- [ ] **TAG 0.6.0** Code check with Unique ID handshakes.
+ 
 ## Packaging
-[ ] **TAG 0.7.0** Perform a proper Node.js module
-[ ] **TAG 0.8.0** Perform a proper Android module
-[ ] **TAG 0.9.0-1.0.0-beta** Making installation documentation
-[ ] **TAG 1.0.0-alpha** Perform test end-to-end
-[ ] **TAG 1.0.0** Release
+- [ ] **TAG 0.7.0** Perform a proper Node.js module
+- [ ] **TAG 0.8.0** Perform a proper Android module
+- [ ] **TAG 0.9.0-1.0.0-beta** Making installation documentation
+- [ ] **TAG 1.0.0-alpha** Perform test end-to-end
+- [ ] **TAG 1.0.0** Release
 
