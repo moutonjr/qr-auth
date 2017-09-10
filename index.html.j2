@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>QRCode Tester</title>
+</head>
+<body>
+<ul id="QRCode"></ul>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script type="text/javascript">
+$(function () {
+        var socket = io();
+        socket.emit("id", "{{id}}");
+        return true;
+        });
+</script>
+Hello World !
+<div id="svgCode">
+<img src="/authentication.svg?id={{id}}" />
+</div>
+</body>
+</html>

@@ -31,11 +31,13 @@ Assumng then that MyCompany has a website and an app.
 1. Access to Sign in URL through HTTPS mandatory, auto generating PSK (short) appended in the URL (WARNING: resource exhaustion risk: Mitigate by anti-DDoS system). E.g. `http://mycompany.com/authenticate?id=09df8d7af519e`. Turns into QR-Code. Submits it.
 2. Android App gets URL and sumbits it with WebSockets Message, generated from salted hash of phone number.
 ```javascript
-{
-"PhoneIdHash" : "6d96270004515a0486bb7f76196a72b40c55a47f"
-"salt" : "HELLOWORLD"
+"09df8d7af519e": {
+    "PhoneIdHash": "6d96270004515a0486bb7f76196a72b40c55a47f",
+    "salt": "HELLOWORLD"
 }
 ```
+Note that browser, server and client share the same WebSocket room.
+
 3. Server binds PSK to PhoneIdHash, the browser session now saves the information to the PhoneIdHash. Somewhere in the database, we get: 
 ```javascript
 [
@@ -61,7 +63,7 @@ Assumng then that MyCompany has a website and an app.
 - [X] Having a running instance of Node.js and dependencies
 - [X] Having Websockets running on a small example
 - [X] **TAG 0.1.0** Having a QR-Code generator
-- [ ] **TAG 0.2.0** Using external URL, disclose webpage and unique ID i another device
+- [X] **TAG 0.2.0** Using external URL, disclose webpage and unique ID i another device
 - [ ] **TAG 0.3.0** Using QR-Code through phone's browser, simulate the user stori described in "Principle" section
 - [ ] **TAG 0.4.0** Having a dummy Android App with a QR-Code reader.
 - [ ] **TAG 0.5.0** Using App's QR-code reader, simulate the user story.

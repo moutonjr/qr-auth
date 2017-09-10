@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+var socket = io();
+socket.emit("authid", "{{id}}");
+socket.on("uuidquery", function(){
+        // TODO change
+        socket.emit("uuidresponse": 42);
+        });
+</script>
+</body>
+</html>
