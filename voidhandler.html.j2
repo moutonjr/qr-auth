@@ -6,9 +6,13 @@
 var socket = io();
 socket.emit("authid", "{{id}}");
 socket.on("uuidquery", function(){
-        // TODO change
-        socket.emit("uuidresponse": 42);
+        socket.emit("uuidresponse", 42);
+        });
+socket.on("Successful Bind", function(){
+        console.log("Success!!");
+        document.getElementById("authbound").innerHTML = "<p> Perfect !!! </p>";
         });
 </script>
+<div id="authbound"><p>Not Yet...</p></div>
 </body>
 </html>

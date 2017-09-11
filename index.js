@@ -8,6 +8,7 @@ var template    = require("swig");
 
 //const indexj2 = template.compileFile(__dirname + "/index.html.j2");
 const voidj2 = template.compileFile(__dirname + "/voidhandler.html.j2");
+const SERVER_NAME="192.168.0.14";
 const SERVER_PORT=3000;
 const PSK_LENGTH=10;
 
@@ -21,7 +22,7 @@ http.listen(SERVER_PORT, function(){
 app.get('/', function(req, res){
        // res.writeHead(200,{ 'Content-Type': 'text/html'  }); 
         var randomid = crypto.randomBytes(PSK_LENGTH).toString("hex");
-        console.log("Generating PSK: " + randomid + "." );
+        console.log("[GET /] Generating PSK: " + randomid + "." );
         let render = template.renderFile(__dirname + "/index.html.j2", {
                 id: randomid
                 });
@@ -31,40 +32,40 @@ app.get('/', function(req, res){
 app.get('/authentication.svg', function(req, res){
         var queryString = url.parse(req.url, true).query;
         if(queryString.id) {
-            var qr = QRCode.image('http://localhost:3000/authhandler?id=' + queryString.id, { type: 'svg' });
+            var qr = QRCode.image('http://' + SERVER_NAME + ':' + SERVER_PORT+ '/authhandler?id=' + queryString.id, { type: 'svg' });
             res.type('svg');
             qr.pipe(res);
             };
         });
 
 io.on('connection', function(socket){
-        console.log('Client connected.');
+        console.log('[Connect] Client connected.');
         var connRandomId;
         // Browser wants to join a room
         socket.on('id', function(randomid){
                 connRandomId = randomid;
-                console.log('using random ID: ' + randomid + ".");
+                console.log('[ID] using random ID: ' + randomid + ".");
                 socket.join(randomid);
                 });
         // New device (e.g. smartphone) Wants to check the ID
         socket.on('authid', function(id){
                 connRandomId = id;
-                console.log('using session ID: ' + id + ".");
-                socket.join(randomid);
+                console.log('[AUTHID] using session ID: ' + id + ".");
+                socket.join(connRandomId);
                 socket.emit("uuidquery");
                 });
         // New device sends UUID.
         socket.on('uuidresponse', function(uuid){
-                console.log('Got UUID: ' + uuid + ".");
+                console.log('[UUIDRESPONSE] Got UUID: ' + uuid + ".");
                 // PUT HERE THE BACKEND STORING UUID.
-                socket.in(connRandomId).emit("Successful Bind", uuid);
-                socket.emit("uuidquery");
+                io.sockets.in(connRandomId).emit("Successful Bind", uuid);
                 });
         socket.on('disconnect', function(){
-                console.log('client disconnected');
+                console.log('[DISCONNECT] client disconnected');
                 });
         // For each update, tell other device.
         socket.on('broadcast', function(payload){
+                console.log("[BROADCAST] broadcasting info : " + payload + ".");
                 socket.to(connRandomId).emit(payload)
                 });
         });
@@ -75,7 +76,11 @@ app.get('/authhandler', function(req, res){
         var queryString = url.parse(req.url, true).query;
         if(queryString.id) {
         //res.writeHead(200,{ 'Content-Type': 'text/html'  }); 
-            io.to(queryString.id).emit("", );
-            };
+            console.log("[GET /authhandler] id " + queryString.id + ".");
+            let render = template.renderFile(__dirname + "/voidhandler.html.j2", {
+                id: queryString.id
+                });
+            res.send(render);
+            }
         });
 
