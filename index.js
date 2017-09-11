@@ -65,8 +65,8 @@ io.on('connection', function(socket){
                 });
         // For each update, tell other device.
         socket.on('broadcast', function(payload){
-                console.log("[BROADCAST] broadcasting info : " + payload + ".");
-                socket.to(connRandomId).emit(payload)
+                console.log("[BROADCAST] broadcasting info : " + JSON.stringify(payload) + ".");
+                io.sockets.in(connRandomId).emit("update", payload)
                 });
         });
 

@@ -64,7 +64,7 @@ Note that browser, server and client share the same WebSocket room.
 - [X] Having Websockets running on a small example
 - [X] **TAG 0.1.0** Having a QR-Code generator
 - [X] **TAG 0.2.0** Using external URL, disclose webpage and unique ID i another device
-- [ ] **TAG 0.3.0** Using QR-Code through phone's browser, simulate the user stori described in "Principle" section
+- [X] **TAG 0.3.0** Using QR-Code through phone's browser, simulate the user stori described in "Principle" section
 - [ ] **TAG 0.4.0** Having a dummy Android App with a QR-Code reader.
 - [ ] **TAG 0.5.0** Using App's QR-code reader, simulate the user story.
 - [ ] **TAG 0.6.0** Code check with Unique ID handshakes.

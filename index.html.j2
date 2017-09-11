@@ -10,8 +10,17 @@
 var socket = io();
 socket.emit("id", "{{id}}");
 socket.on("Successful Bind", function(){
-                document.getElementById("svgCode").innerHTML = "<p> Perfect !!! </p>";
+                document.getElementById("svgCode").innerHTML = "<p> Perfect !!! </p> <form id='SignInCreds'>Enter your Name : <input type='text' id='txtName' onChange='update(this)'><br/></form>";
         });
+socket.on("update", function(payload){
+        if((payload.id) && (payload.value)){
+            document.getElementById(payload.id).value=payload.value;
+        }
+        });
+function update(element) {
+    socket.emit("broadcast", { id: element.id, value: element.value } );
+}
+
 </script>
 Hello World !
 <div id="svgCode">
