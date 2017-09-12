@@ -1,5 +1,5 @@
 # General
-QR-auth v.0.1.0, in development.
+QR-auth v.0.5.0, in development.
 
 # Purpose
 Provide an interface for users to authenticate using solely a smartphone and QR-Codes. Authentication can be multi-devices: browser (PC, tablet), smartphone (app).
@@ -65,8 +65,8 @@ Note that browser, server and client share the same WebSocket room.
 - [X] **TAG 0.1.0** Having a QR-Code generator
 - [X] **TAG 0.2.0** Using external URL, disclose webpage and unique ID i another device
 - [X] **TAG 0.3.0** Using QR-Code through phone's browser, simulate the user stori described in "Principle" section
-- [ ] **TAG 0.4.0** Having a dummy Android App with a QR-Code reader.
-- [ ] **TAG 0.5.0** Using App's QR-code reader, simulate the user story.
+- [X] **TAG 0.4.0** Having a dummy Android App with a QR-Code reader.
+- [X] **TAG 0.5.0** Using App's QR-code reader, simulate the user story.
 - [ ] **TAG 0.6.0** Code check with Unique ID handshakes.
  
 ## Packaging
