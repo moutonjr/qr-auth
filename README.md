@@ -29,7 +29,7 @@ Assumng then that MyCompany has a website and an app.
 # Core authentication scheme
 ## Sign in
 1. Access to Sign in URL through HTTPS mandatory, auto generating PSK (short) appended in the URL (WARNING: resource exhaustion risk: Mitigate by anti-DDoS system). E.g. `http://mycompany.com/authenticate?id=09df8d7af519e`. Turns into QR-Code. Submits it.
-2. Android App gets URL and sumbits it with WebSockets Message, generated from salted hash of phone number.
+2. Android App gets URL and submits it with WebSockets Message, generated from salted hash of phone number.
 ```javascript
 "09df8d7af519e": {
     "PhoneIdHash": "6d96270004515a0486bb7f76196a72b40c55a47f",
@@ -49,7 +49,7 @@ Note that browser, server and client share the same WebSocket room.
 
 ## Log in
 1. Access to Login URL through HTTPS mandatory, auto generating PSK (short) appended in the URL (WARNING: resource exhaustion risk: Mitigate by anti-DDoS system). E.g. `http://mycompany.com/authenticatelogin?id=09df8d7af519e`. Turns into QR-Code. Submits it.
-2. Android App gets URL and sumbits it with WebSockets Message, generated from salted hash of phone number.
+2. Android App gets URL and submits it with WebSockets Message, generated from salted hash of phone number.
 ```javascript
 {
 "PhoneIdHash" : "6d96270004515a0486bb7f76196a72b40c55a47f"
