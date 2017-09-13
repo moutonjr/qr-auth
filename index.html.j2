@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>QRCode Tester</title>
+<title>QR-Code Sign-In</title>
 </head>
 <body>
-<ul id="QRCode"></ul>
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
 var socket = io();
+var sessionUuid;
 socket.emit("id", "{{id}}");
-socket.on("Successful Bind", function(){
-                document.getElementById("svgCode").innerHTML = "<p> Perfect !!! </p> <form id='SignInCreds'>Enter your Name : <input type='text' id='txtName' onChange='update(this)'><br/></form>";
+socket.on("Signin Bind", function(uuid){
+        sessionUuid=uuid;
+        document.getElementById("svgCode").innerHTML = "<p> Synced with you! No more auth needed. But just to prove account binding, enter the informations below: </p> <form id='SignInCreds'>Name: <input type='text' id='txtName' onChange='update(this)'><br/> Surname: <input type='text' id='txtSurame' onChange='update(this)'><br/> <button id='btnSignin' onclick='signin()'>Sign in</button> </form>";
+        });
+socket.on("Successful Login", function(credentials){
+                document.getElementById("svgCode").innerHTML = "<p>Hello again " + credentials.name + " " + credentials.surname + "! </p>"; 
         });
 socket.on("update", function(payload){
         if((payload.id) && (payload.value)){
@@ -20,12 +24,36 @@ socket.on("update", function(payload){
 function update(element) {
     socket.emit("broadcast", { id: element.id, value: element.value } );
 }
-
+function signin(){
+    var sName=document.getElementById("txtName").value;
+    var sSurname=document.getElementById("txtSurame").value;
+    socket.emit("signin", { uuid: sessionUuid, name: sName, surname: sSurname } );
+}
 </script>
-<div align="center">
+ <style type="text/css">
+ body {
+         background-color: lightgreen;
+
+ }
+#SignInCreds.input{
+    margin-left: auto;
+}
+#main {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    background: white;
+    padding: 20px;
+    width: 30%;
+    height: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+</style>
+<div id="main" align="center">
+Signin/Login page.
 Scan this with your Android app.
 <div id="svgCode">
-<img width="20%" src="/authentication.svg?id={{id}}" />
+<img width="90%" src="/authentication.svg?id={{id}}" />
 </div>
 </div>
 </body>

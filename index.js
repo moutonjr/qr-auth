@@ -6,11 +6,12 @@ var QRCode      = require('qr-image');
 var url         = require('url');
 var template    = require("swig");
 
-//const indexj2 = template.compileFile(__dirname + "/index.html.j2");
-const voidj2 = template.compileFile(__dirname + "/voidhandler.html.j2");
 const SERVER_NAME="192.168.0.14";
 const SERVER_PORT=3000;
 const PSK_LENGTH=10;
+
+// To be overridden.
+var lightdb={};
 
 // 1: The server is listening.
 http.listen(SERVER_PORT, function(){
@@ -57,8 +58,21 @@ io.on('connection', function(socket){
         // New device sends UUID.
         socket.on('uuidresponse', function(uuid){
                 console.log('[UUIDRESPONSE] Got UUID: ' + uuid + ".");
+                console.log('[UUIDRESPONSE] DEBUG : lightdb :' + JSON.stringify(lightdb)) ;
                 // PUT HERE THE BACKEND STORING UUID.
-                io.sockets.in(connRandomId).emit("Successful Bind", uuid);
+                if(!(uuid in lightdb)){
+                   io.sockets.in(connRandomId).emit("Signin Bind", uuid);
+                }
+                else{
+                   io.sockets.in(connRandomId).emit("Successful Login", lightdb[uuid]);
+                }
+                });
+        // New device sends UUID.
+        socket.on('signin', function(credentials){
+                console.log('[SIGNIN] Got credentials: ' + JSON.stringify(credentials) + ".");
+                // PUT HERE THE BACKEND STORING UUID.
+                   lightdb[credentials.uuid] = {name: credentials.name, surname: credentials.surname};
+                   io.sockets.in(connRandomId).emit("Successful Signin", credentials.uuid);
                 });
         socket.on('disconnect', function(){
                 console.log('[DISCONNECT] client disconnected');
