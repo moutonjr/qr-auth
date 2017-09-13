@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My First App</string>
+    <string name="app_name">JAuth</string>
     <string name="edit_message">Editing Message</string>
     <string name="button_send">Send</string>
 </resources>

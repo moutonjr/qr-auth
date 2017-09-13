@@ -1,4 +1,4 @@
-package fr.jserv.myfirstapp;
+package fr.jserv.androidapp;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +16,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class MainActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
-    public static final String EXTRA_MESSAGE = "fr.jserv.myfirstapp.MESSAGE";
+    public static final String EXTRA_MESSAGE = "fr.jserv.androidapp.MESSAGE";
     private ZXingScannerView mScannerView;
 
 

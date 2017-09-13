@@ -1,5 +1,3 @@
 <resources>
-    <string name="app_name">Mon premier application</string>
-    <string name="edit_message">Éditez ici àéè€</string>
-    <string name="button_send">Le Envoi</string>
+    <string name="app_name">JAuth</string>
 </resources>

@@ -1,4 +1,4 @@
-package fr.jserv.myfirstapp;
+package fr.jserv.androidapp;
 
 import org.junit.Test;
 

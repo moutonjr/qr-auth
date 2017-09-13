@@ -1,9 +1,10 @@
-package fr.jserv.myfirstapp;
+package fr.jserv.androidapp;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.github.nkzawa.socketio.client.IO;
@@ -23,12 +24,11 @@ import java.util.List;
 public class DisplayMessageActivity extends AppCompatActivity {
     private Socket mSocket;
     private String serverUrl;
-    private TextView textView;
+    private TextView tvMain, tvName, tvSurname;
 
     public DisplayMessageActivity getActivity() {
         return this;
     }
-
 
     private Emitter.Listener onChallenge = new Emitter.Listener() {
         @Override
@@ -43,13 +43,44 @@ public class DisplayMessageActivity extends AppCompatActivity {
         }
     };
 
-    private Emitter.Listener onSuccess = new Emitter.Listener() {
+    private Emitter.Listener onSuccessSignIn = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    addMessage();
+                    addMessage("Successful Sign-In !");
+                    setCredsVisibility(View.INVISIBLE);
+                }
+            });
+        }
+    };
+    private Emitter.Listener onSuccessLogIn = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    addMessage("Successful Log In !");
+                    setCredsVisibility(View.VISIBLE);
+                    JSONObject data = (JSONObject) args[0];
+                    try {
+                        tvName.setText(data.getString("name"));
+                        tvName.setText(data.getString("Surname"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    };
+    private Emitter.Listener onSuccessBind = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    addMessage("Successful Bind !");
                 }
             });
         }
@@ -69,7 +100,11 @@ public class DisplayMessageActivity extends AppCompatActivity {
                             case "txtName":
                                 message = data.getString("value");
                                 Log.d("mSocket", "id field contains:" + message);
-                                textView.setText(message);
+                                tvName.setText(message);
+                            case "txtSurname":
+                                message = data.getString("value");
+                                Log.d("mSocket", "id field contains:" + message);
+                                tvSurname.setText(message);
                             default:
                                 throw new Exception("No component matching form.");
                         }
@@ -88,34 +123,15 @@ public class DisplayMessageActivity extends AppCompatActivity {
         return "42";
     }
 
-/*
-    // Listen to events
-    private Emitter.Listener onNewMessage = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    String username;
-                    String message;
-                    try {
-                        username = data.getString("username");
-                        message = data.getString("message");
-                    } catch (JSONException e) {
-                        return;
-                    }
+    private void addMessage(String message){
+        tvMain.setText(message);
+    }
 
-                    // add the message to view
-                    addMessage();
-                }
-            });
-        }
-    };
- */
-
-    private void addMessage(){
-        textView.setText("Successful login!!");
+    private void setCredsVisibility(int visibility){
+        tvName.setVisibility(visibility);
+        tvSurname.setVisibility(visibility);
+        ((TextView) findViewById(R.id.lblName)).setText(visibility);
+        ((TextView) findViewById(R.id.lblSurname)).setText(visibility);
     }
 
 
@@ -125,8 +141,10 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
         String psk;
         setContentView(R.layout.activity_display_message);
-        textView = (TextView) findViewById(R.id.textView2);
-        textView.setText("Pending...");
+        tvMain = (TextView) findViewById(R.id.tvMain);
+        tvName = (TextView) findViewById(R.id.tvName);
+        tvSurname = (TextView) findViewById(R.id.tvSurname);
+        tvMain.setText("Pending...");
         Intent intent = getIntent();
         serverUrl = intent.getStringExtra(MainActivity.EXTRA_MESSAGE).toUpperCase();
         URI url;
@@ -149,7 +167,9 @@ public class DisplayMessageActivity extends AppCompatActivity {
             Log.d("mSocket", "Sending authid with PSK : " + psk);
 
             mSocket.on("uuidquery", onChallenge);
-            mSocket.on("Successful Bind", onSuccess);
+            mSocket.on("Successful Signin", onSuccessSignIn);
+            mSocket.on("Successful Bind", onSuccessBind);
+            mSocket.on("Successful Login", onSuccessLogIn);
             mSocket.on("update", onUpdate);
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -167,6 +187,9 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
         mSocket.disconnect();
         mSocket.off("uuidquery", onChallenge);
-        mSocket.off("Successful Bind", onSuccess);
-        mSocket.off("update", onUpdate);    }
+        mSocket.off("Successful Signin", onSuccessSignIn);
+        mSocket.off("Successful Bind", onSuccessBind);
+        mSocket.off("Successful Login", onSuccessLogIn);
+        mSocket.off("update", onUpdate);
+    }
 }
