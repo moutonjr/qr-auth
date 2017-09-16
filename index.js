@@ -6,6 +6,9 @@ var QRCode      = require('qr-image');
 var url         = require('url');
 var template    = require("swig");
 
+// Export app (for testing purpose)
+module.exports = app
+
 const SERVER_NAME="192.168.0.14";
 const SERVER_PORT=3000;
 const PSK_LENGTH=10;
@@ -29,15 +32,18 @@ app.get('/', function(req, res){
                 });
         res.send(render);
         });
+
 // 2: Browser queries QR-Code with right PSK:
 app.get('/authentication.svg', function(req, res){
         var queryString = url.parse(req.url, true).query;
         if(queryString.id) {
-            var qr = QRCode.image('http://' + SERVER_NAME + ':' + SERVER_PORT+ '/authhandler?id=' + queryString.id, { type: 'svg' });
-            res.type('svg');
-            qr.pipe(res);
-            };
-        });
+		var qr = QRCode.image('http://' + SERVER_NAME + ':' + SERVER_PORT+ '/authhandler?id=' + queryString.id, { type: 'svg' });
+		res.type('svg');
+		qr.pipe(res);
+	} else {
+		res.status(404).send('Sorry, we cannot find that!');
+	}
+});
 
 io.on('connection', function(socket){
         console.log('[Connect] Client connected.');
@@ -86,15 +92,15 @@ io.on('connection', function(socket){
 
 // 4: Mobile app has snapped the QR. Let's open a void webpage with ID Socket binding.
 app.get('/authhandler', function(req, res){
-        //res.sendFile(__dirname + '/voidhandler.html');
         var queryString = url.parse(req.url, true).query;
         if(queryString.id) {
-        //res.writeHead(200,{ 'Content-Type': 'text/html'  }); 
-            console.log("[GET /authhandler] id " + queryString.id + ".");
-            let render = template.renderFile(__dirname + "/voidhandler.html.j2", {
-                id: queryString.id
+		console.log("[GET /authhandler] id " + queryString.id + ".");
+		let render = template.renderFile(__dirname + "/voidhandler.html.j2", {
+			id: queryString.id
                 });
-            res.send(render);
-            }
-        });
+		res.send(render);
+        } else {
+		res.status(404).send('Sorry, we cannot find that!');
+	}
+});
 
