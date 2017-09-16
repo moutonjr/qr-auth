@@ -4,7 +4,8 @@
   "description": "Allows authentication with QR-Code",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "mocha"
   },
   "author": "Geoff Montel",
   "license": "UNLICENSED",
@@ -14,5 +15,10 @@
     "qr-image": "^3.2.0",
     "socket.io": "^2.0.3",
     "swig": "^1.4.2"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.5.3"
   }
 }
