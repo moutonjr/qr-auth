@@ -1,4 +1,8 @@
 # General
+
+[![Build Status](https://travis-ci.org/moutonjr/qr-auth.svg?branch=master)](https://travis-ci.org/moutonjr/qr-auth)
+[![Coverage Status](https://coveralls.io/repos/github/moutonjr/qr-auth/badge.svg?branch=master)](https://coveralls.io/github/moutonjr/qr-auth?branch=master)
+
 QR-auth v.0.5.0, in development.
 
 # Purpose
