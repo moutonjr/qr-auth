@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>QR-Code Sign-In</title>
+</head>
+<body>
+<script src="/socket.io/socket.io.js"></script>
+ <style type="text/css">
+ body {
+         background-color: lightgreen;
+
+ }
+#SignInCreds.input{
+    margin-left: auto;
+}
+#main {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    background: white;
+    padding: 20px;
+    width: 30%;
+    height: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+</style>
+<div id="main" align="center">
+Please use official Android app instead of a standard QR code scanning app.
+<div id="svgCode">
+<img width="90%" src="/authentication.svg?id={{id}}" />
+</div>
+</div>
+</body>
+</html>

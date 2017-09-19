@@ -102,7 +102,7 @@ app.get('/authhandler', function(req, res){
 		let render = template.renderFile(__dirname + "/voidhandler.html.j2", {
 			id: queryString.id
                 });
-		res.send(render);
+		res.status(404).send(render);
         } else {
 		res.status(404).send('Sorry, we cannot find that!');
 	}
