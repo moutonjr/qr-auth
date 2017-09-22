@@ -1,10 +1,12 @@
 package fr.jserv.androidapp;
 
-import android.content.Intent;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.nkzawa.socketio.client.IO;
@@ -21,12 +23,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-public class DisplayMessageActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
+
     private Socket mSocket;
     private String serverUrl;
-    private TextView tvMain, tvName, tvSurname;
+    private TextView tvMain;
+    private EditText tvName, tvSurname;
 
-    public DisplayMessageActivity getActivity() {
+    public LoginActivity getActivity() {
         return this;
     }
 
@@ -101,10 +105,12 @@ public class DisplayMessageActivity extends AppCompatActivity {
                                 message = data.getString("value");
                                 Log.d("mSocket", "id field contains:" + message);
                                 tvName.setText(message);
+                                break;
                             case "txtSurname":
                                 message = data.getString("value");
                                 Log.d("mSocket", "id field contains:" + message);
                                 tvSurname.setText(message);
+                                break;
                             default:
                                 throw new Exception("No component matching form.");
                         }
@@ -135,15 +141,29 @@ public class DisplayMessageActivity extends AppCompatActivity {
     }
 
 
+
+    private void update(String id, String text){
+        JSONObject data = new JSONObject();
+        try {
+            data.put("id", id);
+            data.put("value", text);
+            Log.d("mSocket", "Attempting to send Object: " + data.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mSocket.emit("broadcast", data);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         String psk;
-        setContentView(R.layout.activity_display_message);
+        setContentView(R.layout.activity_login);
         tvMain = (TextView) findViewById(R.id.tvMain);
-        tvName = (TextView) findViewById(R.id.tvName);
-        tvSurname = (TextView) findViewById(R.id.tvSurname);
+        tvName = (EditText) findViewById(R.id.tvName);
+        tvSurname = (EditText) findViewById(R.id.tvSurname);
         tvMain.setText("Pending...");
         Intent intent = getIntent();
         serverUrl = intent.getStringExtra(MainActivity.EXTRA_MESSAGE).toUpperCase();
@@ -175,8 +195,18 @@ public class DisplayMessageActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-
+        tvName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) update("txtName", tvName.getText().toString());
+            }
+        });
+        tvSurname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) update("txtSurname", tvSurname.getText().toString());
+            }
+        });
 
     }
 

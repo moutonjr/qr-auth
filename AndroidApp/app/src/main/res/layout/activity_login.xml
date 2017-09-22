@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fr.jserv.androidapp.LoginActivity"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
+
+    <TextView
+    android:id="@+id/tvMain"
+    android:layout_width="166dp"
+    android:layout_height="27dp"
+        android:text="Logged In !"
+    android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/lblName"
+        android:layout_width="84dp"
+        android:layout_height="22dp"
+        android:text="Name: "
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvName"
+        android:layout_marginBottom="-9dp"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/lblSurname" />
+
+    <TextView
+    android:id="@+id/lblSurname"
+    android:layout_width="119dp"
+    android:layout_height="23dp"
+    android:text="Surname : "
+    android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSurname"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="28dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <EditText
+        android:id="@+id/tvName"
+        android:layout_width="196dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintLeft_toLeftOf="@+id/tvSurname"
+        app:layout_constraintTop_toBottomOf="@+id/tvMain" />
+
+    <EditText
+        android:id="@+id/tvSurname"
+        android:layout_width="197dp"
+        android:layout_height="41dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintLeft_toRightOf="@+id/lblSurname"
+        app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+</android.support.constraint.ConstraintLayout>

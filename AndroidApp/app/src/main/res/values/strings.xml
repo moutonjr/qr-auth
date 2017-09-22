@@ -1,5 +1,3 @@
 <resources>
-    <string name="app_name">JAuth</string>
-    <string name="edit_message">Editing Message</string>
-    <string name="button_send">Send</string>
+    <string name="app_name">Android App</string>
 </resources>
