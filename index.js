@@ -77,12 +77,13 @@ io.on('connection', function(socket){
 
 	// New device sends UUID.
 	socket.on('signin', function(credentials){
-	console.log('[SIGNIN] Got credentials: ' + JSON.stringify(credentials) + ".");
+   console.log('[SIGNIN] Got credentials: ' + JSON.stringify(credentials) + ".");
 
-	// PUT HERE THE BACKEND STORING UUID.
-	lightdb[credentials.uuid] = {name: credentials.name, surname: credentials.surname};
-		io.sockets.in(connRandomId).emit("Successful Signin", credentials.uuid);
-	});
+   // PUT HERE THE BACKEND STORING UUID.
+   lightdb[credentials.uuid] = {name: credentials.name, surname: credentials.surname};
+   io.sockets.in(connRandomId).emit("Successful Signin", credentials.uuid);
+  });
+
 	socket.on('disconnect', function(){
 		console.log('[DISCONNECT] client disconnected');
 	});
