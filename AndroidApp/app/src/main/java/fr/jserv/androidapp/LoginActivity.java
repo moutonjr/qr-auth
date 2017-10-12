@@ -3,7 +3,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import fr.jserv.qr_authserver.QRSignIn;
+import fr.jserv.qr_auth.QRSignIn;
 
 public class LoginActivity extends QRSignIn {
 
