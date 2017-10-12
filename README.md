@@ -75,8 +75,14 @@ Note that browser, server and client share the same WebSocket room.
  
 ## Packaging
 - [ ] **TAG 0.7.0** Perform a proper Node.js module
-- [ ] **TAG 0.8.0** Perform a proper Android module
+- [X] **TAG 0.8.0** Perform a proper Android module
 - [ ] **TAG 0.9.0-1.0.0-beta** Making installation documentation
 - [ ] **TAG 1.0.0-alpha** Perform test end-to-end
 - [ ] **TAG 1.0.0** Release
+
+# Disclaimer
+
+Under Apache 2.0 license
+
+The word "QR Code" is registered trademark of DENSO WAVE INCORPORATED
 
