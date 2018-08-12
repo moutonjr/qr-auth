@@ -1,8 +1,9 @@
 {
-  "name": "qr_authentication",
-  "version": "0.1.0",
+  "name": "qr-auth_server",
+  "version": "1.0.0",
   "description": "Allows authentication with QR-Code",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "start": "node index.js",
     "test": "node_modules/mocha/bin/_mocha"
@@ -18,9 +19,9 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "chai-http": "^3.0.0",
+    "chai-http": "^4.0.0",
     "istanbul": "^0.4.5",
     "istanbul-coveralls": "^1.0.3",
-    "mocha": "^3.5.3"
+    "mocha": "^5.2.0"
   }
 }
